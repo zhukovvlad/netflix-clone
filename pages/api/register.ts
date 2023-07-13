@@ -12,6 +12,7 @@ export default async function handler(
   }
 
   try {
+    console.log(req.body);
     const { name, email, password } = req.body;
 
     const existingUser = await prismadb.user.findUnique({
@@ -26,7 +27,7 @@ export default async function handler(
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    const user = prismadb.user.create({
+    const user = await prismadb.user.create({
       data: {
         email,
         name,
